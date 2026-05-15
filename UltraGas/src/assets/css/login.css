@@ -1,0 +1,743 @@
+/* Estilo geral da tela. */
+body {
+    background-color: #0037d4;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Imagem de fundo do login. */
+.login-page-bg {
+    position: fixed;
+    inset: 0;
+    background-image: url('../images/fundoLogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+/* Linha verde decorativa do centro. */
+.green-line {
+    position: fixed;
+    top: 0;
+    left: 55%;
+    width: 2px;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.green-line svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    overflow: visible;
+}
+
+/* Curva verde decorativa da direita. */
+.green-curve-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.green-curve-right svg {
+    width: 120px;
+    height: 100%;
+}
+
+/* Área principal da página. */
+.login-page-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.login-main-row {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-height: calc(100vh - 90px);
+    padding-left: 0;
+}
+
+/* Lado esquerdo com marca e benefícios. */
+.login-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px 40px 0px;
+    color: white;
+    max-width: 58%;
+}
+
+/* Logo da Ultragaz. */
+.ultragaz-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.ultragaz-logo .logo-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.ultragaz-logo .logo-text-group {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.ultragaz-logo .logo-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.ultragaz-logo .logo-tagline {
+    font-size: 10px;
+    font-weight: 300;
+    color: #00e5b4;
+    margin-top: 2px;
+}
+
+/* Texto principal da tela. */
+.login-headline {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.25;
+    margin: 0 0 8px 0;
+    text-align: left;
+}
+
+.login-headline .highlight {
+    color: #00e5b4;
+}
+
+.headline-bar {
+    width: 36px;
+    height: 3px;
+    background: #00e5b4;
+    border-radius: 2px;
+    margin: 12px 0 16px 0;
+}
+
+/* Lista de vantagens. */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feature-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+}
+
+.feature-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.feature-text span {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Card de destaque do lado esquerdo. */
+.feature-card-highlight {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 400px;
+    backdrop-filter: blur(6px);
+}
+
+.feature-card-highlight .icon-tag {
+    width: 40px;
+    height: 40px;
+    background: rgba(0,229,180,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feature-card-highlight .icon-tag svg {
+    width: 20px;
+    height: 20px;
+    stroke: #00e5b4;
+    fill: none;
+    stroke-width: 2;
+}
+
+.feature-card-highlight strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.feature-card-highlight span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Caixa branca do login. */
+.login-right-panel {
+    position: relative;
+    top: -600px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    max-height: none;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    background: white;
+}
+
+.login-page-bg,
+.green-line,
+.green-curve-right {
+    pointer-events: none;
+}
+
+.login-page-wrapper {
+    pointer-events: none;
+}
+
+.login-left,
+.bottom-bar {
+    pointer-events: auto;
+}
+
+.login-right-panel {
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.login-right-panel h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 4px 0;
+    text-align: center;
+}
+
+.login-right-panel h2 span {
+    color: #0044e0;
+}
+
+.login-right-panel .login-subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0 0 20px 0;
+}
+
+/* Logo usado no mobile. */
+.mobile-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mobile-logo svg {
+    width: 38px;
+    height: 38px;
+}
+
+.mobile-logo .logo-text-group {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.mobile-logo .logo-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0044e0;
+    letter-spacing: -0.5px;
+}
+
+.mobile-logo .logo-tagline {
+    font-size: 9px;
+    color: #00b899;
+    font-weight: 300;
+}
+
+/* Labels dos campos. */
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+/* Campos do formulário. */
+.input-wrapper {
+    position: relative;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-wrapper > svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.input-wrapper input {
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    padding: 11px 46px 11px 42px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a2e;
+    background: #f9fafb;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    box-sizing: border-box;
+}
+
+.input-wrapper input::placeholder {
+    color: #9ca3af;
+}
+
+.input-wrapper input:focus {
+    border-color: #0044e0;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0,68,224,0.1);
+}
+
+/* Botão de mostrar senha. */
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.toggle-password svg {
+    width: 18px;
+    height: 18px;
+    stroke: #9ca3af;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Link de recuperação de senha. */
+.forgot-link {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #0044e0;
+    text-decoration: none;
+    margin-top: -6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Botão principal do login. */
+.btn-entrar {
+    width: 100%;
+    padding: 12px;
+    background: #0044e0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 4px 14px rgba(0,68,224,0.35);
+    text-decoration: none;
+}
+
+.btn-entrar:hover {
+    background: #0033bb;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,68,224,0.45);
+}
+
+.btn-entrar svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2.5;
+}
+
+/* Divisor entre login e cadastro. */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+/* Botão de criar conta. */
+.btn-criar {
+    width: 100%;
+    padding: 11px;
+    background: white;
+    color: #0044e0;
+    border: 1.5px solid #0044e0;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.25s, transform 0.2s;
+}
+
+.btn-criar:hover {
+    background: #f0f5ff;
+    transform: translateY(-1px);
+}
+
+.btn-criar svg {
+    width: 18px;
+    height: 18px;
+    stroke: #0044e0;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Mensagem de segurança. */
+.security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.security-note svg {
+    width: 13px;
+    height: 13px;
+    stroke: #9ca3af;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Barra inferior da tela. */
+.bottom-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 100vw;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    box-sizing: border-box;
+}
+
+.bottom-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bottom-bar-item .bicon {
+    width: 36px;
+    height: 36px;
+    background: rgba(0,68,224,0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-bar-item .bicon svg {
+    width: 18px;
+    height: 18px;
+    stroke: #0044e0;
+    fill: none;
+    stroke-width: 2;
+}
+
+.bottom-bar-item .btext strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0044e0;
+    line-height: 1.2;
+}
+
+.bottom-bar-item .btext span {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* Estados de validação dos campos. */
+.input-wrapper.input-valid input {
+    border-color: #10b981;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+}
+
+.input-wrapper.input-invalid input {
+    border-color: #ef4444;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+}
+
+/* Ajustes para celular. */
+.login-page-bg,
+.green-line,
+.green-curve-right,
+.login-left,
+.bottom-bar {
+    display: none;
+}
+
+body {
+    background: #f5f7fa;
+    min-height: 100vh;
+}
+
+.login-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    box-sizing: border-box;
+}
+
+.login-main-row {
+    display: contents;
+}
+
+.login-right-panel {
+    position: relative;
+    top: -650px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    max-height: none;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    background: white;
+}
+
+/* Ajustes para tablet. */
+@media (min-width: 700px) and (max-width: 1023px) {
+    body {
+        background: #f5f7fa;
+        min-height: 100vh;
+    }
+
+    .login-page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+
+    .login-right-panel {
+        position: relative;
+        top: -650px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        padding: 28px 44px;
+        border-radius: 22px;
+    }
+
+    .mobile-logo {
+        margin-bottom: 24px;
+    }
+
+    .mobile-logo svg {
+        width: 46px;
+        height: 46px;
+    }
+
+    .mobile-logo .logo-name {
+        font-size: 26px;
+    }
+
+    .mobile-logo .logo-tagline {
+        font-size: 10px;
+    }
+
+    .login-right-panel h2 {
+        font-size: 26px;
+    }
+}
+
+/* Ajustes para desktop. */
+@media (min-width: 1024px) {
+    .login-page-bg,
+    .green-line,
+    .green-curve-right,
+    .login-left,
+    .bottom-bar {
+        display: block;
+    }
+
+    .bottom-bar {
+        display: flex;
+    }
+
+    .mobile-logo {
+        display: none;
+    }
+
+    body {
+        background: #0037d4;
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .login-page-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+        padding: 0;
+        align-items: stretch;
+        justify-content: flex-start;
+        margin-left: -150px;
+    }
+
+    .login-main-row {
+        display: flex;
+        flex: 1;
+        margin-right: 500px;
+        align-items: center;
+        overflow: hidden;
+        padding-bottom: 105px;
+    }
+
+    .login-left {
+        max-width: 58%;
+    }
+
+    .login-right-panel {
+        position: fixed;
+        right: 100px;
+        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 440px;
+        max-width: none;
+        max-height: 94vh;
+        padding: 28px 36px 24px;
+        border-radius: 18px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+        overflow-y: auto;
+    }
+}
