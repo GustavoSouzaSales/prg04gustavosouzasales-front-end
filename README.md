@@ -88,7 +88,8 @@ O sistema conta com:
 
 # 🔗 Deploy
 
-🚧 Projeto em desenvolvimento
+🚧 Projeto publicado na Vercel:
+https://prg04gustavosouzasales-front-end.vercel.app/
 
 ---
 
