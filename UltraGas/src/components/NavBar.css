@@ -1,0 +1,301 @@
+/* Sidebar principal */
+.nb-sidebar {
+  --nb-accent: #00e5b4;
+  --nb-blue:   #0044e0;
+  --nb-dark:   #002fa3;
+
+  width: 100%;
+  background: linear-gradient(168deg, #0044e0 0%, #002fa3 50%, #00b89a 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Círculos decorativos */
+.nb-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.nb-deco-circle--1 {
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 229, 180, 0.10);
+  bottom: -60px;
+  right: -60px;
+}
+
+.nb-deco-circle--2 {
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  top: -30px;
+  left: -30px;
+}
+
+/* Área superior */
+.nb-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Marca */
+.nb-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nb-brand-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nb-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.nb-brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.3px;
+}
+
+.nb-brand-tagline {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--nb-accent);
+  margin-top: 3px;
+  letter-spacing: 0.4px;
+}
+
+/* Linha separadora */
+.nb-separator {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent);
+  margin: 0 4px;
+}
+
+/* Navegação */
+.nb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Item do menu */
+.nb-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 11px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
+}
+
+.nb-nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Item ativo */
+.nb-nav-item--active {
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-weight: 600;
+}
+
+/* Fundo do item ativo */
+.nb-nav-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* Bolinha verde do ativo */
+.nb-nav-dot {
+  margin-left: auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--nb-accent);
+  flex-shrink: 0;
+}
+
+/* Ícone do menu */
+.nb-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Texto do menu */
+.nb-nav-label {
+  flex: 1;
+}
+
+/* Card de login */
+.nb-login-card {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px 16px 18px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Avatar do card */
+.nb-login-avatar {
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, #e8eeff, #f0f5ff);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 68, 224, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+/* Textos do card */
+.nb-login-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.nb-login-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.nb-login-sub {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* Botão de login */
+.nb-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 10px 0;
+  background: linear-gradient(135deg, #0044e0, #1a6aff);
+  color: white;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 9px;
+  letter-spacing: 0.6px;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 68, 224, 0.35);
+}
+
+.nb-login-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Mobile */
+.nb-sidebar {
+  padding: 18px 16px;
+}
+
+.nb-top {
+  gap: 16px;
+}
+
+/* Tablet */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .nb-sidebar {
+    padding: 20px 24px;
+  }
+
+  .nb-nav {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .nb-nav-item {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+  }
+
+  .nb-nav-label {
+    flex: unset;
+  }
+
+  .nb-separator {
+    display: none;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .nb-sidebar {
+    width: 260px;
+    min-width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 20px;
+  }
+
+  .nb-top {
+    gap: 32px;
+  }
+
+  .nb-nav {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nb-nav-item {
+    justify-content: flex-start;
+    padding: 12px 16px;
+  }
+
+  .nb-login-card {
+    display: flex;
+  }
+}

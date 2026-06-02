@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-/* Ícones usados no formulário. */
+/* ── Ícones do formulário ── */
 const IconMail = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" width="18" height="18">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -52,51 +53,49 @@ const IconShieldSmall = () => (
   </svg>
 );
 
+/* Ícone de check para campo válido */
+const IconCheck = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" width="16" height="16">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+/* Ícone de X para campo inválido */
+const IconX = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2.5" width="14" height="14">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
 function LoginForm() {
   const navigate = useNavigate();
 
-  /* States do formulário. */
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
-  /* Validação dos campos. */
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordValid = password.length >= 8;
 
-  /* Classes que controlam as bordas. */
-  const emailBorder = emailTouched
-    ? emailValid
-      ? "input-valid"
-      : "input-invalid"
-    : "";
+  const emailState = emailTouched ? (emailValid ? "input-valid" : "input-invalid") : "";
+  const passwordState = passwordTouched ? (passwordValid ? "input-valid" : "input-invalid") : "";
 
-  const passwordBorder = passwordTouched
-    ? passwordValid
-      ? "input-valid"
-      : "input-invalid"
-    : "";
-
-  /* Valida antes de entrar. */
   function entrar() {
     setEmailTouched(true);
     setPasswordTouched(true);
-
-    if (emailValid && passwordValid) {
-      navigate("/home");
-    }
+    if (emailValid && passwordValid) navigate("/home");
   }
 
   return (
     <>
-      {/* Campo de e-mail. */}
+      {/* ── E-mail ── */}
       <label className="field-label">E-mail</label>
 
-      <div className={`input-wrapper ${emailBorder}`}>
+      <div className={`input-wrapper ${emailState}`}>
         <IconMail />
-
         <input
           type="email"
           placeholder="seu@email.com"
@@ -105,24 +104,34 @@ function LoginForm() {
           onBlur={() => setEmailTouched(true)}
           autoComplete="email"
         />
+        {/* Ícone de feedback no lugar do toggle de senha */}
+        {emailTouched && (
+          <span className="field-feedback-icon">
+            {emailValid ? <IconCheck /> : <IconX />}
+          </span>
+        )}
       </div>
 
-      {/* Campo de senha. */}
-      <label className="field-label">Senha</label>
+      {/* Mensagem de erro do e-mail */}
+      {emailTouched && !emailValid && (
+        <p className="field-error-msg">Digite um e-mail válido.</p>
+      )}
 
-      <div className={`input-wrapper ${passwordBorder}`}>
+      {/* ── Senha ── */}
+      <label className="field-label" style={{ marginTop: emailTouched && !emailValid ? 0 : undefined }}>
+        Senha
+      </label>
+
+      <div className={`input-wrapper ${passwordState}`}>
         <IconLock />
-
         <input
           type={showPassword ? "text" : "password"}
-          placeholder="Sua senha"
+          placeholder="Mínimo 8 caracteres"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onBlur={() => setPasswordTouched(true)}
           autoComplete="current-password"
         />
-
-        {/* Botão de mostrar ou ocultar senha. */}
         <button
           type="button"
           className="toggle-password"
@@ -138,12 +147,35 @@ function LoginForm() {
         </button>
       </div>
 
-      {/* Link auxiliar. */}
-      <a href="#" className="forgot-link">
-        Esqueci minha senha
-      </a>
+      {/* Mensagem de erro da senha + indicador de força */}
+      {passwordTouched && !passwordValid && (
+        <p className="field-error-msg">A senha deve ter pelo menos 8 caracteres.</p>
+      )}
 
-      {/* Botão principal. */}
+      {/* Barra de força da senha */}
+      {passwordTouched && password.length > 0 && (
+        <div className="password-strength">
+          <div
+            className={`password-strength-bar ${
+              password.length < 8
+                ? "strength-weak"
+                : password.length < 12
+                ? "strength-medium"
+                : "strength-strong"
+            }`}
+          />
+          <span className="password-strength-label">
+            {password.length < 8 ? "Fraca" : password.length < 12 ? "Média" : "Forte"}
+          </span>
+        </div>
+      )}
+
+      {/* Link de recuperação */}
+      <Link to="/esqueci-senha" className="forgot-link">
+        Esqueci minha senha
+      </Link>
+
+      {/* Botão principal */}
       <button type="button" className="btn-entrar" onClick={entrar}>
         <IconArrowRight />
         Entrar
@@ -151,13 +183,13 @@ function LoginForm() {
 
       <div className="divider">ou</div>
 
-      {/* Botão de cadastro. */}
-      <button type="button" className="btn-criar">
+      {/* Criar conta */}
+      <Link to="/criar-conta" className="btn-criar">
         <IconUserPlus />
-        Criar nova conta
-      </button>
+        Criar conta
+      </Link>
 
-      {/* Aviso de segurança. */}
+      {/* Nota de segurança */}
       <div className="security-note">
         <IconShieldSmall />
         Seus dados estão protegidos com segurança

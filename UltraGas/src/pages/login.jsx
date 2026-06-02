@@ -1,7 +1,8 @@
 import "../assets/css/login.css";
 import LoginForm from "../components/LoginForm";
+import Footer from "../components/Footer";
 
-/* ── Ícone principal da marca ── */
+/* Ícone principal da marca */
 const IconFlameLogo = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
     <circle cx="24" cy="24" r="24" fill="#1a6aff" opacity="0.15" />
@@ -11,7 +12,7 @@ const IconFlameLogo = () => (
   </svg>
 );
 
-/* ── Ícones usados no lado esquerdo ── */
+/* Ícone de segurança */
 const IconShield = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" width="20" height="20">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -19,6 +20,7 @@ const IconShield = () => (
   </svg>
 );
 
+/* Ícone de entrega */
 const IconTruck = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" width="20" height="20">
     <rect x="1" y="3" width="15" height="13" rx="1" />
@@ -28,12 +30,14 @@ const IconTruck = () => (
   </svg>
 );
 
+/* Ícone de telefone */
 const IconPhone = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" width="20" height="20">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.31 6.31l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
   </svg>
 );
 
+/* Ícone do card de destaque */
 const IconTag = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="#00e5b4" strokeWidth="2" width="20" height="20">
     <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
@@ -41,42 +45,16 @@ const IconTag = () => (
   </svg>
 );
 
-/* ── Ícones da barra inferior ── */
-const IconClock = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="#0044e0" strokeWidth="2" width="18" height="18">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-
-const IconTruckSmall = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="#0044e0" strokeWidth="2" width="18" height="18">
-    <rect x="1" y="3" width="15" height="13" rx="1" />
-    <path d="M16 8h4l3 3v5h-7V8z" />
-    <circle cx="5.5" cy="18.5" r="2.5" />
-    <circle cx="18.5" cy="18.5" r="2.5" />
-  </svg>
-);
-
-const IconLeaf = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="#0044e0" strokeWidth="2" width="18" height="18">
-    <path d="M12 22V12M12 12C12 7 17 2 22 2c0 5-5 10-10 10zM12 12C12 7 7 2 2 2c0 5 5 10 10 10z" />
-  </svg>
-);
-
-const IconZap = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="#0044e0" strokeWidth="2" width="18" height="18">
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </svg>
-);
-
 function Login() {
   return (
     <>
-      {/* Fundo principal da tela */}
+      {/* Fundo principal */}
       <div className="login-page-bg"></div>
 
-      {/* Linhas verdes decorativas */}
+      {/* Camada escura por cima do fundo */}
+      <div className="login-page-overlay"></div>
+
+      {/* Linhas decorativas da esquerda */}
       <div className="green-line">
         <svg viewBox="0 0 300 900" preserveAspectRatio="none">
           <path d="M 0 0 Q 150 200 80 400 Q 10 600 150 900" stroke="#00e5b4" strokeWidth="1.5" fill="none" opacity="0.5" />
@@ -84,29 +62,32 @@ function Login() {
         </svg>
       </div>
 
+      {/* Linha decorativa da direita */}
       <div className="green-curve-right">
         <svg viewBox="0 0 120 900" preserveAspectRatio="none">
           <path d="M 120 0 Q -30 300 60 600 Q 150 750 80 900" stroke="#00e5b4" strokeWidth="1.5" fill="none" opacity="0.4" />
         </svg>
       </div>
 
-      {/* Conteúdo principal da página */}
+      {/* Área principal da tela */}
       <div className="login-page-wrapper">
         <div className="login-main-row">
 
-          {/* Lado esquerdo com logo, texto e benefícios */}
+          {/* Conteúdo do lado esquerdo */}
           <div className="login-left">
+
+            {/* Logo */}
             <div className="ultragaz-logo">
               <div className="logo-icon">
                 <IconFlameLogo />
               </div>
-
               <div className="logo-text-group">
                 <span className="logo-name">ultragaz</span>
                 <span className="logo-tagline">somando energias</span>
               </div>
             </div>
 
+            {/* Texto principal */}
             <h1 className="login-headline">
               Energia que move<br />
               sua casa, seu negócio<br />
@@ -115,9 +96,9 @@ function Login() {
 
             <div className="headline-bar"></div>
 
-            {/* Lista de vantagens */}
-            <ul className="feature-list">
-              <li>
+            {/* Cards de vantagens */}
+            <div className="feature-grid">
+              <div className="feature-card">
                 <div className="feature-icon">
                   <IconShield />
                 </div>
@@ -125,9 +106,9 @@ function Login() {
                   <strong>Segurança garantida</strong>
                   <span>Padrão UltraGás de qualidade</span>
                 </div>
-              </li>
+              </div>
 
-              <li>
+              <div className="feature-card">
                 <div className="feature-icon">
                   <IconTruck />
                 </div>
@@ -135,9 +116,9 @@ function Login() {
                   <strong>Entrega rápida</strong>
                   <span>Mais agilidade para o seu dia</span>
                 </div>
-              </li>
+              </div>
 
-              <li>
+              <div className="feature-card">
                 <div className="feature-icon">
                   <IconPhone />
                 </div>
@@ -145,67 +126,28 @@ function Login() {
                   <strong>Atendimento próximo</strong>
                   <span>Sempre que você precisar</span>
                 </div>
-              </li>
-            </ul>
-
-            {/* Card de destaque */}
-            <div className="feature-card-highlight">
-              <div className="icon-tag">
-                <IconTag />
               </div>
-              <div>
-                <strong>Facilidade que rende mais</strong>
-                <span>Peça seu gás com poucos cliques e acompanhe tudo por aqui!</span>
+
+              {/* Card com destaque visual */}
+              <div className="feature-card feature-card--accent">
+                <div className="feature-icon feature-icon--accent">
+                  <IconTag />
+                </div>
+                <div className="feature-text">
+                  <strong>Facilidade que rende mais</strong>
+                  <span>Peça seu gás com poucos cliques!</span>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
 
-        {/* Barra inferior com informações rápidas */}
-        <div className="bottom-bar">
-          <div className="bottom-bar-item">
-            <div className="bicon">
-              <IconClock />
-            </div>
-            <div className="btext">
-              <strong>Confiança que vem<br />de longe</strong>
-              <span>Mais de 85 anos de história</span>
-            </div>
-          </div>
-
-          <div className="bottom-bar-item">
-            <div className="bicon">
-              <IconTruckSmall />
-            </div>
-            <div className="btext">
-              <strong>Presente em todo<br />o Brasil</strong>
-              <span>Energia para milhões de lares</span>
-            </div>
-          </div>
-
-          <div className="bottom-bar-item">
-            <div className="bicon">
-              <IconLeaf />
-            </div>
-            <div className="btext">
-              <strong>Sustentabilidade<br />que transforma</strong>
-              <span>Compromisso com o futuro</span>
-            </div>
-          </div>
-
-          <div className="bottom-bar-item">
-            <div className="bicon">
-              <IconZap />
-            </div>
-            <div className="btext">
-              <strong>Inovação que<br />facilita sua vida</strong>
-              <span>Tecnologia a serviço de você</span>
-            </div>
-          </div>
-        </div>
+        {/* Rodapé */}
+        <Footer />
       </div>
 
-      {/* Caixa branca do formulário */}
+      {/* Card branco com o formulário */}
       <div className="login-right-panel">
         <div className="mobile-logo">
           <IconFlameLogo />
@@ -223,7 +165,7 @@ function Login() {
           Acesse sua conta para continuar
         </p>
 
-        {/* Formulário separado em componente */}
+        {/* Formulário importado */}
         <LoginForm />
       </div>
     </>

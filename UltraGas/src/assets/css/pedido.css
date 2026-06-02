@@ -1,0 +1,745 @@
+/* Importa a fonte da página */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Variáveis principais */
+:root {
+  --blue:       #0044e0;
+  --blue-dark:  #002fa3;
+  --blue-light: #e8eeff;
+  --teal:       #00e5b4;
+  --gray-text:  #6b7280;
+  --gray-border:#e5e7eb;
+  --gray-bg:    #f0f2f7;
+  --white:      #ffffff;
+  --red:        #ef4444;
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.08);
+  --radius:     16px;
+  --radius-sm:  10px;
+}
+
+/* Reset básico */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Base da página */
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: var(--gray-bg);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Container geral */
+.pd-root {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--gray-bg);
+  align-items: flex-start;
+}
+
+/* Conteúdo principal */
+.pd-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 32px 80px;
+  gap: 24px;
+  min-width: 0;
+  background: var(--gray-bg);
+  overflow: visible;
+}
+
+/* Cabeçalho */
+.pd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pd-header-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.3px;
+}
+
+.pd-header-sub {
+  font-size: 13px;
+  color: var(--gray-text);
+  margin-top: 3px;
+}
+
+/* Botão de notificação */
+.pd-bell-btn {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.pd-bell-btn:hover { box-shadow: var(--shadow-md); }
+
+/* Bolinha da notificação */
+.pd-bell-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--red);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gray-bg);
+}
+
+/* Card das etapas */
+.pd-stepper-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 22px 36px;
+  border: 1px solid var(--gray-border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Área das etapas */
+.pd-stepper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.pd-step-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.pd-step-wrap:first-child { flex: 0 0 auto; }
+
+/* Linha entre etapas */
+.pd-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--gray-border);
+  margin: 0 10px 20px;
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.pd-step-line--done { background: var(--blue); }
+
+/* Etapa */
+.pd-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pd-step-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gray-border);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+/* Etapa concluída */
+.pd-step-circle--done {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+/* Etapa ativa */
+.pd-step-circle--active {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 5px rgba(0,68,224,0.14);
+}
+
+.pd-step-label {
+  font-size: 11.5px;
+  color: #9ca3af;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pd-step-label--active {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* Conteúdo com formulário e resumo */
+.pd-content {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Coluna do formulário */
+.pd-form-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Card do formulário */
+.pd-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 1px solid var(--gray-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Cabeçalho da seção */
+.pd-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-border);
+}
+
+/* Ícone da seção */
+.pd-section-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--blue-light);
+  border-radius: 10px;
+  border: 1px solid rgba(0,68,224,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pd-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.pd-section-sub {
+  font-size: 12px;
+  color: var(--gray-text);
+  margin-top: 3px;
+}
+
+/* Grade do formulário */
+.pd-form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 16px;
+  row-gap: 16px;
+}
+
+/* Campo do formulário */
+.pd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* Tamanhos dos campos */
+.pd-field--full      { grid-column: span 12; }
+.pd-field--telefone,
+.pd-field--cep,
+.pd-field--gas-select { grid-column: span 6; }
+.pd-field--grow      { grid-column: span 9; }
+.pd-field--small     { grid-column: span 3; }
+
+.pd-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.1px;
+}
+
+/* Input padrão */
+.pd-input {
+  width: 100%;
+  height: 46px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-border);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-family: 'Poppins', sans-serif;
+  color: #111827;
+  background: #fafbfc;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pd-input::placeholder { color: #9ca3af; }
+
+/* Input focado */
+.pd-input:focus {
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,68,224,0.10);
+}
+
+/* Input desativado */
+.pd-input:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Botões das etapas */
+.pd-step-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--gray-border);
+}
+
+/* Botão próximo */
+.pd-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--blue), #1a6aff);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,68,224,0.32);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.pd-next-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* Botão voltar */
+.pd-back-btn {
+  height: 46px;
+  padding: 0 24px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--blue);
+  background: white;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pd-back-btn:hover { background: var(--blue-light); }
+
+/* Botão adicionar */
+.pd-add-btn2 {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--blue-light);
+  color: var(--blue);
+  border: 1.5px solid rgba(0,68,224,0.20);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.pd-add-btn2:hover {
+  background: #d6e4ff;
+  border-color: rgba(0,68,224,0.35);
+}
+
+/* Caixa de confirmação */
+.pd-confirm-box {
+  background: #f8fafc;
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-confirm-box p {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Prévia do endereço */
+.pd-address-preview {
+  grid-column: 1 / -1;
+  background: #f8fafc;
+  border: 1px solid var(--gray-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.pd-address-preview strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.pd-address-preview p {
+  margin: 3px 0;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+/* Selo de endereço principal */
+.pd-address-badge {
+  background: var(--blue-light);
+  color: var(--blue);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* Botão de endereço manual */
+.pd-use-manual-address-btn {
+  width: 100%;
+  height: 44px;
+  border: 1.5px dashed rgba(0,68,224,0.35);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--blue);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pd-use-manual-address-btn:hover { background: var(--blue-light); }
+
+/* Área do resumo */
+.pd-summary {
+  width: 320px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 32px;
+}
+
+/* Card do resumo */
+.pd-summary-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  border: 1px solid var(--gray-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pd-summary-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray-border);
+}
+
+/* Produto no resumo */
+.pd-summary-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--gray-bg);
+  border-radius: 12px;
+  position: relative;
+  border: 1px solid var(--gray-border);
+}
+
+/* Imagem do gás */
+.pd-summary-cyl-img {
+  width: 48px;
+  height: 62px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,68,224,0.12));
+  flex-shrink: 0;
+}
+
+/* Informações do produto */
+.pd-summary-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pd-summary-ptype {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pd-summary-pweight,
+.pd-summary-qty {
+  font-size: 12px;
+  color: var(--gray-text);
+}
+
+/* Preço e quantidade */
+.pd-summary-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  padding-right: 28px;
+}
+
+.pd-summary-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Botão remover item */
+.pd-remove-item {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 7px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pd-remove-item:hover { background: #fee2e2; }
+
+/* Resumo vazio */
+.pd-summary-empty {
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--gray-bg);
+  color: var(--gray-text);
+  font-size: 13px;
+  text-align: center;
+  border: 1px dashed var(--gray-border);
+}
+
+/* Linhas do resumo */
+.pd-summary-divider {
+  height: 1px;
+  background: var(--gray-border);
+}
+
+.pd-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--gray-text);
+}
+
+.pd-summary-row span:last-child {
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Total */
+.pd-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  padding-top: 4px;
+}
+
+.pd-summary-total-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+/* Card de segurança */
+.pd-secure-card {
+  background: var(--blue-light);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid rgba(0,68,224,0.10);
+}
+
+.pd-secure-icon {
+  width: 34px;
+  height: 34px;
+  background: var(--white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pd-secure-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 2px;
+}
+
+.pd-secure-desc {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Aviso inferior */
+.pd-footer-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #9ca3af;
+  padding-top: 4px;
+}
+
+/* Mobile */
+@media (max-width: 699px) {
+  .pd-root { flex-direction: column; }
+
+  .pd-main {
+    width: 100%;
+    padding: 20px 16px 40px;
+    margin-left: 0;
+    gap: 16px;
+  }
+
+  .pd-header-title { font-size: 20px; }
+
+  .pd-stepper-card {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .pd-stepper { min-width: 480px; }
+  .pd-step-label { display: none; }
+
+  .pd-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pd-card { padding: 18px 16px; }
+
+  .pd-form-col { width: 100%; }
+
+  .pd-form-grid { grid-template-columns: 1fr; }
+
+  .pd-field--full,
+  .pd-field--telefone,
+  .pd-field--cep,
+  .pd-field--grow,
+  .pd-field--small,
+  .pd-field--gas-select { grid-column: span 1; }
+
+  .pd-summary {
+    width: 100%;
+    position: static;
+  }
+
+  .pd-step-actions { justify-content: stretch; }
+  .pd-back-btn, .pd-next-btn { flex: 1; }
+}
+
+/* Tablet */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .pd-root { flex-direction: column; }
+
+  .pd-main {
+    width: 100%;
+    padding: 24px 24px 48px;
+    margin-left: 0;
+  }
+
+  .pd-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pd-form-col,
+  .pd-summary {
+    width: 100%;
+    max-width: 720px;
+    position: static;
+    margin: 0 auto;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .pd-root {
+    flex-direction: row;
+    min-height: 100vh;
+  }
+
+  .pd-main {
+    margin-left: 260px;
+    width: calc(100vw - 260px);
+    min-height: 100vh;
+  }
+}
