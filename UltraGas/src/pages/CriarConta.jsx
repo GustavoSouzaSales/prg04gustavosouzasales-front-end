@@ -1,4 +1,4 @@
-import "../assets/css/criarConta.css";
+import "../assets/css/CriarConta.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
