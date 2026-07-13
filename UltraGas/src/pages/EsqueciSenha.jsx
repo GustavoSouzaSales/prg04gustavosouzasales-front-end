@@ -2,6 +2,7 @@ import "../assets/css/EsqueciSenha.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import { apiFetch } from "../services/api";
 
 /* ── Ícones ── */
 const IconFlameLogo = () => (
@@ -52,21 +53,41 @@ const IconX = () => (
 function EsqueciSenha() {
   const navigate = useNavigate();
 
-  const [email,        setEmail]        = useState("");
+  const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
-  const [enviado,      setEnviado]      = useState(false);
+  const [carregando, setCarregando] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState("");
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const emailState = emailTouched ? (emailValid ? "valid" : "invalid") : "";
 
-  const enviarEmail = (e) => {
-    e.preventDefault();
-    setEmailTouched(true);
-    if (!emailValid) return;
-    setEnviado(true);
-    navigate("/nova-senha");
-  };
+  const enviarEmail = async (e) => {
+  e.preventDefault();
 
+  setEmailTouched(true);
+  setMensagem("");
+  setErro("");
+
+  if (!emailValid) return;
+
+  try {
+    setCarregando(true);
+
+    await apiFetch("/auth/esqueci-senha", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    });
+
+    setMensagem(
+      "Enviamos para o seu e-mail um link para redefinir sua senha."
+    );
+  } catch (error) {
+    setErro(error.message);
+  } finally {
+    setCarregando(false);
+  }
+};
   return (
     <>
       {/* Fundo */}
@@ -154,17 +175,28 @@ function EsqueciSenha() {
               <p className="field-hint field-hint--error">Digite um e-mail válido.</p>
             )}
 
-            {enviado && (
-              <div className="sucesso-esqueci">
-                <IconCheck />
-                Pronto! Enviamos as instruções para o seu e-mail.
-              </div>
-            )}
+            {mensagem && (
+  <div className="sucesso-esqueci">
+    <IconCheck />
+    {mensagem}
+  </div>
+)}
 
-            <button type="submit" className="btn-enviar-email">
-              <IconArrowRight />
-              Enviar instruções
-            </button>
+{erro && (
+  <div className="erro-esqueci">
+    <IconX />
+    {erro}
+  </div>
+)}
+
+            <button
+  type="submit"
+  className="btn-enviar-email"
+  disabled={carregando || !emailValid}
+>
+  <IconArrowRight />
+  {carregando ? "Enviando..." : "Enviar instruções"}
+</button>
           </form>
 
           <div className="divider">ou</div>

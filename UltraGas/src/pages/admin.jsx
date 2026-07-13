@@ -24,6 +24,99 @@ const IconToastWarn = () => (
   </svg>
 );
 
+/* ─── Modal de confirmação neon ─── */
+function ConfirmModal({ title, message, onConfirm, onCancel, confirmLabel = "Confirmar", danger = false }) {
+  return (
+    <div className="ad-modal-overlay" style={{ zIndex: 1100 }}>
+      <div className="ad-modal" style={{
+        maxWidth: 420,
+        background: "linear-gradient(160deg, #0d1f3c 0%, #07111e 100%)",
+        border: `1px solid ${danger ? "rgba(255,68,68,0.30)" : "rgba(0,170,255,0.22)"}`,
+        boxShadow: danger
+          ? "0 0 60px rgba(255,68,68,0.12), 0 24px 64px rgba(0,0,0,0.60)"
+          : "0 0 60px rgba(0,170,255,0.14), 0 24px 64px rgba(0,0,0,0.60)",
+        position: "relative", overflow: "hidden",
+      }}>
+        {/* Linha neon topo */}
+        <div style={{
+          position: "absolute", top: 0, left: "15%", right: "15%", height: 1,
+          background: danger
+            ? "linear-gradient(90deg, transparent, #ff4455, transparent)"
+            : "linear-gradient(90deg, transparent, #00aaff, transparent)",
+          opacity: 0.75,
+        }} />
+
+        <div style={{ padding: "28px 26px 24px", textAlign: "center" }}>
+          {/* Ícone */}
+          <div style={{
+            width: 56, height: 56, borderRadius: "50%",
+            background: danger ? "rgba(255,68,68,0.10)" : "rgba(255,179,0,0.10)",
+            border: `1.5px solid ${danger ? "rgba(255,68,68,0.30)" : "rgba(255,179,0,0.30)"}`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            margin: "0 auto 18px",
+            boxShadow: danger ? "0 0 20px rgba(255,68,68,0.18)" : "0 0 20px rgba(255,179,0,0.18)",
+          }}>
+            {danger ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ff4455" strokeWidth="2" width="26" height="26">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                <path d="M10 11v6M14 11v6"/>
+                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ffb300" strokeWidth="2" width="26" height="26">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            )}
+          </div>
+
+          <h3 style={{
+            fontFamily: "'Space Grotesk', sans-serif", fontSize: 17, fontWeight: 700,
+            color: "#f0f4ff", marginBottom: 10,
+          }}>{title}</h3>
+
+          <p style={{ fontSize: 13.5, color: "#8ba3c7", lineHeight: 1.6, marginBottom: 24 }}>
+            {message}
+          </p>
+
+          <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
+            <button onClick={onCancel} style={{
+              height: 40, padding: "0 20px", borderRadius: 10, cursor: "pointer",
+              border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.04)",
+              color: "#8ba3c7", fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600,
+              transition: "background 0.2s",
+            }}
+              onMouseOver={e => e.target.style.background = "rgba(255,255,255,0.08)"}
+              onMouseOut={e => e.target.style.background = "rgba(255,255,255,0.04)"}
+            >
+              Cancelar
+            </button>
+            <button onClick={onConfirm} style={{
+              height: 40, padding: "0 24px", borderRadius: 10, cursor: "pointer",
+              border: "none",
+              background: danger
+                ? "linear-gradient(135deg, #ff3344, #cc1122)"
+                : "linear-gradient(135deg, #ffb300, #ff9800)",
+              color: "white",
+              fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 700,
+              boxShadow: danger
+                ? "0 4px 16px rgba(255,50,68,0.38)"
+                : "0 4px 16px rgba(255,179,0,0.38)",
+              transition: "opacity 0.2s",
+            }}
+              onMouseOver={e => e.target.style.opacity = "0.88"}
+              onMouseOut={e => e.target.style.opacity = "1"}
+            >
+              {confirmLabel}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Admin() {
   const [abaAtiva, setAbaAtiva] = useState("usuarios");
   const [usuarios, setUsuarios] = useState([]);
@@ -37,6 +130,13 @@ function Admin() {
   const [enderecoDetalhe, setEnderecoDetalhe] = useState(null);
   const [mostrarEndereco, setMostrarEndereco] = useState(false);
   const [toast, setToast] = useState(null);
+  const [logs, setLogs] = useState([]);
+
+  // Modal de confirmação
+  const [confirm, setConfirm] = useState(null); // { title, message, onConfirm, confirmLabel, danger }
+
+  const showConfirm = (opts) => setConfirm(opts);
+  const closeConfirm = () => setConfirm(null);
 
   const showToast = (msg, type = "error") => {
     setToast({ msg, type });
@@ -51,7 +151,15 @@ function Admin() {
     carregarUsuarios();
     carregarPedidos();
     carregarProdutos();
+    carregarLogs();
   }, []);
+
+  async function carregarLogs() {
+    try {
+      const resposta = await apiFetch("/logs?page=0&size=100");
+      setLogs(resposta.content || []);
+    } catch (error) { showToast(error.message); }
+  }
 
   async function carregarUsuarios() {
     try {
@@ -117,8 +225,13 @@ function Admin() {
   };
 
   const cancelarPedido = (pedido) => {
-    if (!window.confirm("Deseja cancelar este pedido?")) return;
-    atualizarStatusPedido(pedido, "Cancelado");
+    showConfirm({
+      title: "Cancelar pedido",
+      message: `Deseja realmente cancelar o pedido ${pedido.codigo}? Esta ação não pode ser desfeita.`,
+      confirmLabel: "Cancelar pedido",
+      danger: true,
+      onConfirm: () => { closeConfirm(); atualizarStatusPedido(pedido, "Cancelado"); },
+    });
   };
 
   const abrirModalCriarProduto = () => {
@@ -160,13 +273,22 @@ function Admin() {
     } catch (error) { showToast(error.message); }
   };
 
-  const excluirProduto = async (id) => {
-    if (!window.confirm("Deseja excluir este produto?")) return;
-    try {
-      await apiFetch(`/produtos/${id}`, { method: "DELETE" });
-      setProdutos((lista) => lista.filter((produto) => produto.id !== id));
-      showToast("Produto excluído.", "success");
-    } catch (error) { showToast(error.message); }
+  const excluirProduto = (id) => {
+    const produto = produtos.find(p => p.id === id);
+    showConfirm({
+      title: "Excluir produto",
+      message: `Deseja excluir "${produto?.nome}"? Esta ação não pode ser desfeita.`,
+      confirmLabel: "Excluir",
+      danger: true,
+      onConfirm: async () => {
+        closeConfirm();
+        try {
+          await apiFetch(`/produtos/${id}`, { method: "DELETE" });
+          setProdutos((lista) => lista.filter((p) => p.id !== id));
+          showToast("Produto excluído.", "success");
+        } catch (error) { showToast(error.message); }
+      },
+    });
   };
 
   const abrirDetalhesPedido = async (pedido) => {
@@ -211,11 +333,11 @@ function Admin() {
         <section className="ad-card">
           <div className="ad-card-header ad-card-header-row">
             <div>
-              <h2>{abaAtiva === "usuarios" ? "Usuários Cadastrados" : abaAtiva === "pedidos" ? "Pedidos Realizados" : "Produtos Cadastrados"}</h2>
-              <p>{abaAtiva === "usuarios" ? "Lista de usuários cadastrados no sistema." : abaAtiva === "pedidos" ? "Lista de pedidos para visualização administrativa." : "Cadastre, edite e remova produtos disponíveis para pedido."}</p>
+              <h2>{abaAtiva === "usuarios" ? "Usuários Cadastrados" : abaAtiva === "pedidos" ? "Pedidos Realizados" : abaAtiva === "produtos" ? "Produtos Cadastrados" : "Logs do Sistema"}</h2>
+              <p>{abaAtiva === "usuarios" ? "Lista de usuários cadastrados no sistema." : abaAtiva === "pedidos" ? "Lista de pedidos para visualização administrativa." : abaAtiva === "produtos" ? "Cadastre, edite e remova produtos disponíveis para pedido." : "Registro de ações realizadas no sistema."}</p>
             </div>
             <div className="ad-tabs">
-              {[["usuarios","Usuários"],["pedidos","Pedidos"],["produtos","Produtos"]].map(([key,label]) => (
+              {[["usuarios","Usuários"],["pedidos","Pedidos"],["produtos","Produtos"],["logs","Logs"]].map(([key,label]) => (
                 <button key={key} type="button"
                   className={`ad-tab-btn ${abaAtiva === key ? "ad-tab-btn--active" : ""}`}
                   onClick={() => setAbaAtiva(key)}>{label}</button>
@@ -223,7 +345,15 @@ function Admin() {
             </div>
           </div>
 
-          {abaAtiva === "usuarios" && <UserTable usuarios={usuarios} setUsuarios={setUsuarios} showToast={showToast} />}
+          {abaAtiva === "usuarios" && (
+            <UserTable
+              usuarios={usuarios}
+              setUsuarios={setUsuarios}
+              showToast={showToast}
+              showConfirm={showConfirm}
+              closeConfirm={closeConfirm}
+            />
+          )}
 
           {abaAtiva === "pedidos" && (
             <div className="ad-table-wrap">
@@ -302,6 +432,31 @@ function Admin() {
                 </table>
               </div>
             </>
+          )}
+
+          {abaAtiva === "logs" && (
+            <div className="ad-table-wrap">
+              <table className="ad-table">
+                <thead>
+                  <tr><th>Data/Hora</th><th>Usuário</th><th>Ação</th><th>Entidade</th><th>ID</th><th>Descrição</th></tr>
+                </thead>
+                <tbody>
+                  {logs.map((log) => (
+                    <tr key={log.id}>
+                      <td>{log.dataHora ? new Date(log.dataHora).toLocaleString("pt-BR") : "-"}</td>
+                      <td>{log.usuarioEmail || "-"}</td>
+                      <td>{log.acao}</td>
+                      <td>{log.entidade || "-"}</td>
+                      <td>{log.entidadeId ? `#${log.entidadeId}` : "-"}</td>
+                      <td>{log.descricao}</td>
+                    </tr>
+                  ))}
+                  {logs.length === 0 && (
+                    <tr><td colSpan="6" style={{textAlign:"center",color:"var(--text-3)",padding:"28px"}}>Nenhum log encontrado.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           )}
         </section>
 
@@ -408,6 +563,18 @@ function Admin() {
               </form>
             </div>
           </div>
+        )}
+
+        {/* Modal de confirmação neon */}
+        {confirm && (
+          <ConfirmModal
+            title={confirm.title}
+            message={confirm.message}
+            confirmLabel={confirm.confirmLabel}
+            danger={confirm.danger}
+            onConfirm={confirm.onConfirm}
+            onCancel={closeConfirm}
+          />
         )}
 
         {toast && (

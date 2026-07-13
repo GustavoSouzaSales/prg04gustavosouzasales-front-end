@@ -354,3 +354,54 @@ body { background: linear-gradient(135deg, #040d1f 0%, #071428 50%, #040a18 100%
   .esqueci-card::-webkit-scrollbar { display: none; }
   .esqueci-mobile-logo { display: none; }
 }
+
+.sucesso-esqueci {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(0, 230, 118, 0.10);
+  border: 1px solid rgba(0, 230, 118, 0.32);
+  color: #00e676;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  box-shadow: 0 0 18px rgba(0, 230, 118, 0.12);
+  animation: esqueciMsgIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sucesso-esqueci svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.erro-esqueci {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 68, 85, 0.10);
+  border: 1px solid rgba(255, 68, 85, 0.32);
+  color: #ff4455;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  box-shadow: 0 0 18px rgba(255, 68, 85, 0.12);
+  animation: esqueciMsgIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.erro-esqueci svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes esqueciMsgIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

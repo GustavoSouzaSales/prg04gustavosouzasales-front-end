@@ -1,7 +1,8 @@
 import "../assets/css/NovaSenha.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
+import { apiFetch } from "../services/api";
 
 const IconFlameLogo = () => (
   <svg viewBox="0 0 48 48" fill="none" width="48" height="48">
@@ -94,6 +95,8 @@ function FieldStatus({ touched, valid }) {
 
 function NovaSenha() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
 
   const [senha,          setSenha]          = useState("");
   const [confirmar,      setConfirmar]      = useState("");
@@ -102,6 +105,8 @@ function NovaSenha() {
   const [senhaTouched,   setSenhaTouched]   = useState(false);
   const [confirmTouched, setConfirmTouched] = useState(false);
   const [sucesso,        setSucesso]        = useState(false);
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState("");
 
   const senhaOk   = isPassValid(senha);
   const confirmOk = isConfirmValid(senha, confirmar);
@@ -110,12 +115,44 @@ function NovaSenha() {
   const cls = (touched, valid) =>
     touched ? (valid ? "input-valid" : "input-invalid") : "";
 
-  const salvar = (e) => {
-    e.preventDefault();
-    setSenhaTouched(true);
-    setConfirmTouched(true);
-    if (senhaOk && confirmOk) setSucesso(true);
-  };
+  const salvar = async (e) => {
+  e.preventDefault();
+
+  setSenhaTouched(true);
+  setConfirmTouched(true);
+  setSucesso(false);
+  setErro("");
+
+  if (!senhaOk || !confirmOk) return;
+
+  if (!token) {
+    setErro("Link de recuperação inválido.");
+    return;
+  }
+
+  try {
+    setCarregando(true);
+
+    await apiFetch("/auth/nova-senha", {
+      method: "POST",
+      body: JSON.stringify({
+        token,
+        novaSenha: senha,
+      }),
+    });
+
+    setSucesso(true);
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
+
+  } catch (error) {
+    setErro(error.message);
+  } finally {
+    setCarregando(false);
+  }
+};
 
   return (
     <>
@@ -239,10 +276,21 @@ function NovaSenha() {
               </div>
             )}
 
-            <button type="submit" className="btn-salvar-senha">
-              <IconArrowRight />
-              Salvar nova senha
-            </button>
+            {erro && (
+  <div className="erro-nova">
+    <IconX />
+    {erro}
+  </div>
+)}
+
+            <button
+  type="submit"
+  className="btn-salvar-senha"
+  disabled={carregando}
+>
+  <IconArrowRight />
+  {carregando ? "Salvando..." : "Salvar nova senha"}
+</button>
           </form>
 
           <div className="divider">ou</div>

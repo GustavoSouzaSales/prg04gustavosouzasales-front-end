@@ -31,7 +31,6 @@ const IconEyeOff = () => (
   </svg>
 );
 
-/* ─── Força da senha ─── */
 function senhaForca(s) {
   if (!s) return -1;
   let score = 0;
@@ -49,7 +48,7 @@ const FORCA_LABEL = ["Fraca", "Média", "Forte"];
 const FORCA_COLOR = ["#ff4444", "#ffb300", "#00e676"];
 const FORCA_CLASS = ["ut-strength-weak", "ut-strength-medium", "ut-strength-strong"];
 
-function UserTable({ usuarios, setUsuarios, showToast }) {
+function UserTable({ usuarios, setUsuarios, showToast, showConfirm, closeConfirm }) {
   const [busca, setBusca] = useState("");
   const [filtroStatus, setFiltroStatus] = useState("Todos");
   const [modalAberto, setModalAberto] = useState(false);
@@ -83,8 +82,6 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
 
   const salvarUsuario = async (e) => {
     e.preventDefault();
-
-    // Validações com mensagens específicas
     if (!form.nome.trim()) {
       showToast("Informe o nome do usuário.", "warning"); return;
     }
@@ -102,7 +99,6 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
         showToast(`Senha muito curta — mínimo 8 caracteres (${form.senha.length}/8).`, "warning"); return;
       }
     }
-
     try {
       if (modoModal === "criar") {
         const novoUsuario = await apiFetch("/usuarios", {
@@ -127,14 +123,22 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
     } catch (error) { showToast(error.message || "Erro ao salvar usuário."); }
   };
 
-  const excluirUsuario = async (id) => {
+  const excluirUsuario = (id) => {
     const usuario = usuarios.find(u => u.id === id);
-    if (!window.confirm(`Deseja excluir o usuário "${usuario?.nome}"?`)) return;
-    try {
-      await apiFetch(`/usuarios/${id}`, { method: "DELETE" });
-      setUsuarios((lista) => lista.filter((u) => u.id !== id));
-      showToast(`Usuário "${usuario?.nome}" excluído.`, "success");
-    } catch (error) { showToast(error.message || "Erro ao excluir usuário."); }
+    showConfirm({
+      title: "Excluir usuário",
+      message: `Deseja excluir o usuário "${usuario?.nome}"? Esta ação não pode ser desfeita.`,
+      confirmLabel: "Excluir",
+      danger: true,
+      onConfirm: async () => {
+        closeConfirm();
+        try {
+          await apiFetch(`/usuarios/${id}`, { method: "DELETE" });
+          setUsuarios((lista) => lista.filter((u) => u.id !== id));
+          showToast(`Usuário "${usuario?.nome}" excluído.`, "success");
+        } catch (error) { showToast(error.message || "Erro ao excluir usuário."); }
+      },
+    });
   };
 
   const forca = senhaForca(form.senha);
@@ -197,7 +201,6 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
               <button type="button" className="ad-modal-close" onClick={fecharModal}>×</button>
             </div>
             <form className="ad-modal-form" onSubmit={salvarUsuario}>
-
               {[["Nome", "nome", "text", "Digite o nome completo"],
                 ["E-mail", "email", "email", "Digite o e-mail"],
                 ["Telefone", "telefone", "text", "(75) 99999-9999"]
@@ -218,7 +221,6 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
                 </div>
               ))}
 
-              {/* Senha com olho + barra de força — só no modo criar */}
               {modoModal === "criar" && (
                 <div className="ad-modal-field">
                   <label>Senha</label>
@@ -235,15 +237,9 @@ function UserTable({ usuarios, setUsuarios, showToast }) {
                       {showSenha ? <IconEyeOff /> : <IconEye />}
                     </button>
                   </div>
-
-                  {/* Hint de comprimento */}
                   {form.senha.length > 0 && form.senha.length < 8 && (
-                    <p className="ut-hint ut-hint--error">
-                      Mínimo 8 caracteres ({form.senha.length}/8).
-                    </p>
+                    <p className="ut-hint ut-hint--error">Mínimo 8 caracteres ({form.senha.length}/8).</p>
                   )}
-
-                  {/* Barra de força */}
                   {form.senha.length > 0 && (
                     <div className="ut-strength-wrap">
                       <div className="ut-strength-bars">
