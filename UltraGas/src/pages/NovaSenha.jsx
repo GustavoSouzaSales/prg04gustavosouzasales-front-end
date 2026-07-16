@@ -1,5 +1,9 @@
 import "../assets/css/NovaSenha.css";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useLocation
+} from "react-router-dom";
 import { useState } from "react";
 import Footer from "../components/Footer";
 import { apiFetch } from "../services/api";
@@ -95,9 +99,8 @@ function FieldStatus({ touched, valid }) {
 
 function NovaSenha() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
-
+  const location = useLocation();
+  const token = location.state?.token;
   const [senha,          setSenha]          = useState("");
   const [confirmar,      setConfirmar]      = useState("");
   const [showSenha,      setShowSenha]      = useState(false);
