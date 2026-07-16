@@ -405,3 +405,202 @@ body { background: linear-gradient(135deg, #040d1f 0%, #071428 50%, #040a18 100%
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ═══════════════════════════════════════
+   MODAL VERIFICAÇÃO — redesign neon
+═══════════════════════════════════════ */
+
+.codigo-overlay {
+  position: fixed; inset: 0;
+  background: rgba(4, 10, 28, 0.85);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  animation: ccOverlayIn 0.3s ease;
+}
+
+@keyframes ccOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.codigo-modal {
+  width: 100%; max-width: 400px;
+  background: linear-gradient(160deg, #0d1f3c 0%, #07111e 100%);
+  border: 1px solid rgba(0,170,255,0.25);
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,170,255,0.18), 0 32px 80px rgba(0,0,0,0.70);
+  position: relative;
+  overflow: hidden;
+  animation: ccModalIn 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+@keyframes ccModalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Linha neon topo */
+.codigo-modal::before {
+  content: '';
+  position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+  background: linear-gradient(90deg, transparent, #00aaff, transparent);
+  opacity: 0.75;
+}
+
+/* Ícone escudo */
+.codigo-icon-wrap {
+  display: flex; justify-content: center; margin-bottom: 18px;
+}
+
+.codigo-icon-ring {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(0,170,255,0.10);
+  border: 1.5px solid rgba(0,170,255,0.30);
+  display: flex; align-items: center; justify-content: center;
+  color: #00aaff;
+  box-shadow: 0 0 24px rgba(0,170,255,0.25);
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,170,255,0.25); }
+  50%       { box-shadow: 0 0 36px rgba(0,170,255,0.50); }
+}
+
+.codigo-modal h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: #f0f4ff; margin-bottom: 8px;
+  background: none; /* override branco anterior */
+}
+
+.codigo-modal p {
+  font-size: 13px; color: #8ba3c7; margin-bottom: 4px;
+}
+
+.codigo-email {
+  display: block;
+  font-size: 13px; font-weight: 600; color: #00aaff;
+  margin-bottom: 20px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ─── Dígitos visuais ─── */
+.codigo-digits-wrap {
+  position: relative;
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 16px;
+}
+
+.codigo-digit {
+  width: 44px; height: 54px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0,170,255,0.20);
+  background: rgba(0,170,255,0.05);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora', 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700; color: #f0f4ff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.codigo-digit--filled {
+  border-color: #00aaff;
+  background: rgba(0,170,255,0.10);
+  box-shadow: 0 0 10px rgba(0,170,255,0.20);
+}
+
+/* Input invisível que fica por cima dos dígitos */
+.codigo-input-hidden {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: text;
+  width: 100%; height: 100%;
+  font-size: 0; letter-spacing: 0;
+  background: transparent; border: none; outline: none;
+  caret-color: transparent;
+}
+
+/* ─── Timer ─── */
+.codigo-timer {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  font-size: 12.5px; color: #4d6a8a; font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* ─── Botão confirmar ─── */
+.btn-confirmar-codigo {
+  width: 100%; padding: 13px;
+  background: linear-gradient(135deg, #00aaff, #0066ff);
+  color: white; border: none; border-radius: 12px;
+  font-size: 14px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer; margin-bottom: 10px;
+  box-shadow: 0 4px 20px rgba(0,170,255,0.40);
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+
+.btn-confirmar-codigo:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 28px rgba(0,170,255,0.60);
+}
+
+/* ─── Botão reenviar ─── */
+.btn-reenviar-codigo {
+  width: 100%; padding: 11px;
+  background: rgba(0,170,255,0.07);
+  color: #8ba3c7;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  font-size: 13px; font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-reenviar-codigo:not(:disabled):hover {
+  background: rgba(0,170,255,0.14);
+  color: #00aaff;
+  border-color: rgba(0,170,255,0.25);
+}
+
+.btn-reenviar-codigo:disabled {
+  opacity: 0.5; cursor: not-allowed;
+}
+
+/* ─── Botão fechar modal ─── */
+.codigo-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #4d6a8a; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.codigo-close:hover { background: rgba(255,68,68,0.12); color: #ff4455; }
+
+/* ─── Input real de código ─── */
+.codigo-input-real {
+  width: 100%; margin-bottom: 16px;
+  padding: 16px;
+  background: rgba(0,170,255,0.06);
+  border: 1.5px solid rgba(0,170,255,0.25);
+  border-radius: 14px;
+  text-align: center;
+  font-family: 'Sora', 'Space Grotesk', monospace;
+  font-size: 28px; font-weight: 700;
+  letter-spacing: 14px;
+  color: #f0f4ff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  caret-color: #00aaff;
+}
+.codigo-input-real::placeholder { color: rgba(0,170,255,0.20); letter-spacing: 14px; }
+.codigo-input-real:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0,170,255,0.14);
+}
