@@ -84,7 +84,6 @@ function EsqueciSenha() {
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [carregando, setCarregando] = useState(false);
-  const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState("");
   const [modalCodigo, setModalCodigo] = useState(false);
   const [codigo, setCodigo] = useState("");
@@ -101,7 +100,6 @@ function EsqueciSenha() {
   e.preventDefault();
 
   setEmailTouched(true);
-  setMensagem("");
   setErro("");
 
   if (!emailValid) return;
@@ -167,10 +165,12 @@ const verificarCodigoRecuperacao = async () => {
     setSucessoCodigo("E-mail verificado com sucesso!");
 
     setTimeout(() => {
-      navigate(
-        `/nova-senha?token=${encodeURIComponent(resposta.token)}`
-      );
-    }, 1000);
+  navigate("/nova-senha", {
+    state: {
+      token: resposta.token,
+    },
+  });
+}, 1000);
   } catch (error) {
     setErroCodigo(
       error.message || "Código inválido ou expirado."
