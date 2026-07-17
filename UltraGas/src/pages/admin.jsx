@@ -444,7 +444,7 @@ function Admin() {
                   {logs.map((log) => (
                     <tr key={log.id}>
                       <td>{log.dataHora ? new Date(log.dataHora).toLocaleString("pt-BR") : "-"}</td>
-                      <td>{log.usuarioEmail || "-"}</td>
+                      <td>{log.usuarioNome || log.usuarioEmail || "-"}</td>
                       <td>{log.acao}</td>
                       <td>{log.entidade || "-"}</td>
                       <td>{log.entidadeId ? `#${log.entidadeId}` : "-"}</td>
